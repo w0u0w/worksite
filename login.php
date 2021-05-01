@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 include "db_connect.php";
     if(isset($_POST['email']) && isset($_POST['password'])) {
         function validate($data) {
@@ -12,28 +13,50 @@ include "db_connect.php";
         $fpasswrd = validate($_POST['password']);
 
         if (empty($femail)) {
-            header("Location: loginform.php?error=User Email is required");
+            header("Location: loginform.php?error=Вы не ввели почту");
             exit();
         } 
         else if(empty($fpasswrd)){
-            header("Location: loginform.php?error=User Password is required");
+            header("Location: loginform.php?error=Вы не ввели пароль");
             exit();
         }
         else {
-           $sql = $db->prepare("SELECT * FROM emp WHERE email=?");
-           $sql->execute([$femail]);
+            $stmt = $conn->prepare("SELECT * FROM emp WHERE email=?");
+            $stmt->execute([$femail]);
 
-           if($sql->rowCount() === 1) {
+            if($stmt->rowCount() === 1) {
+                $user = $stmt->fetch();
+                $user_id = $user['id'];
+                $user_email = $user['email'];
+                $user_password = $user['password'];
+                $user_firstname = $user['firstname'];
 
-           }
-           else {
-               header("Location: loginform.php?error=Incorrect data");
-           }
-           
+
+                if($femail === $user_email) {
+                    if(password_verify($fpasswrd, $user_password)) {
+                        $_SESSION['user_id'] = $user_id;
+                        $_SESSION['user_email'] = $user_email;
+                        $_SESSION['user_firstname'] = $user_firstname;
+
+                        header("Location: index.php");
+                    }
+                    else {
+                        
+                        header("Location: loginform.php?error=Неверно указана почта или пароль");
+                    }
+                }
+                else {
+                    header("Location: loginform.php?error=Неверно указана почта или пароль");
+                }
+            }
+            else {
+                header("Location: loginform.php?error=Неверно указана почта или пароль");
+            }
         }
     }
     else {
         header("Location: loginform.php");
         exit();
+        
     }
 ?>
