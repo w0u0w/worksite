@@ -144,7 +144,7 @@
             width: 100%;
             height: 2px;
             background: linear-gradient(90deg, transparent, #03e9f4);
-            animation: btn-anim1 1s linear infinite;
+            animation: btn-anim1 2s linear infinite;
         }
 
 
@@ -155,8 +155,8 @@
             width: 2px;
             height: 100%;
             background: linear-gradient(180deg, transparent, #03e9f4);
-            animation: btn-anim2 1s linear infinite;
-            animation-delay: .25s
+            animation: btn-anim2 2s linear infinite;
+            animation-delay: .48s
         }
 
         @keyframes btn-anim2 {
@@ -175,8 +175,8 @@
                 width: 100%;
                 height: 2px;
                 background: linear-gradient(270deg, transparent, #03e9f4);
-                animation: btn-anim3 1s linear infinite;
-                animation-delay: .5s
+                animation: btn-anim3 2s linear infinite;
+                animation-delay: 0.96s
                 }
 
                 @keyframes btn-anim3 {
@@ -194,8 +194,8 @@
                 width: 2px;
                 height: 100%;
                 background: linear-gradient(360deg, transparent, #03e9f4);
-                animation: btn-anim4 1s linear infinite;
-                animation-delay: .75s
+                animation: btn-anim4 2s linear infinite;
+                animation-delay: 1.44s
                 }
 
                 @keyframes btn-anim4 {
